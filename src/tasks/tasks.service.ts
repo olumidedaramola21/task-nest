@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Task, TaskStatus } from './task.model';
-// import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { CreateTaskDto } from './dto/create-task.dto';
 
 @Injectable()
@@ -25,13 +25,11 @@ export class TasksService {
     const { title, description } = createTaskDto;
 
     const task: Task = {
-      // id: uuid(),
-      id: this.idCounter.toString(),
+      id: uuid(),
       title,
       description,
       status: TaskStatus.OPEN,
     };
-    this.idCounter++;
     this.tasks.push(task);
     return task;
   }
